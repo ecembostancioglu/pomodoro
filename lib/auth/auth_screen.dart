@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
+import 'package:pomodoro_app/constants/text_constants.dart';
 import 'auth_card.dart';
 
 enum AuthMode{ SignUp, Login}
@@ -46,7 +47,7 @@ class AuthScreen extends StatelessWidget {
                           endIndent: 10,
                         )
                     ),
-                    Text("OR"),
+                    Text(TextConstants.or),
                     Expanded(
                         child: Divider(
                           indent: 10,
