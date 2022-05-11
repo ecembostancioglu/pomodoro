@@ -16,7 +16,7 @@ class AuthScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(
-            deviceSize.height*0.18),
+            deviceSize.height*0.16),
         child: Container(
           decoration: BoxDecoration(
             color: ColorConstants.primaryColor,
@@ -56,7 +56,30 @@ class AuthScreen extends StatelessWidget {
                         )
                     ),
                   ]
-              )
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                 splashColor: ColorConstants.highlightColor,
+                 onTap: (){},
+                 customBorder: CircleBorder(),
+                 radius:deviceSize.width*0.15,
+                 child: Icon(Icons.facebook,
+                  size: deviceSize.width*0.15,
+                  color: ColorConstants.facebook,),
+             ),
+                InkWell(
+                  splashColor: ColorConstants.highlightColor,
+                  onTap: (){},
+                  customBorder: CircleBorder(),
+                  child: Image.asset('assets/search.png',
+                    width:deviceSize.width*0.115),
+                ),
+
+              ],
             )
           ],
         ),

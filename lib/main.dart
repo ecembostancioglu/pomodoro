@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
               bodyColor: ColorConstants.primaryColor,
             )),
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home:  SplashScreen(),
       ),
     );
   }

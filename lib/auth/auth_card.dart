@@ -23,7 +23,9 @@ class _AuthCardState extends State<AuthCard> {
 
   bool _isLoading=false;
   final _passwordController=TextEditingController();
+  final _confirmPasswordController=TextEditingController();
   bool _obscureText=true;
+  bool _obscureTextForConfirm=true;
 
    _showErrorDialog(String message){
     showDialog(
@@ -187,13 +189,29 @@ class _AuthCardState extends State<AuthCard> {
                     child: TextFormField(
                       enabled: _authMode ==AuthMode.SignUp,
                       decoration: InputDecoration(
+                          prefixIcon:Icon(
+                              Icons.lock,
+                              color: Theme.of(context).primaryColor),
+                          suffix: InkWell(
+                            onTap:(){
+                              setState(() {
+                                _obscureTextForConfirm = !_obscureTextForConfirm;
+                              });
+                            },
+                            child: Icon(
+                              _obscureTextForConfirm ? Icons.visibility : Icons.visibility_off,
+                              color: ColorConstants.primaryColor,
+                              size: MediaQuery.of(context).size.width * 0.05,
+                            ),
+                          ),
                           labelText: 'Confirm Password',
                           border:OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
-                      obscureText: true,
+                      obscureText: _obscureTextForConfirm,
+                      controller: _confirmPasswordController,
                       validator: _authMode ==AuthMode.SignUp
                           ? (val) {
-                        if(val != _passwordController.text){
+                        if(val != _confirmPasswordController.text){
                           return 'Passwords do not match!';
                         }
                       }
