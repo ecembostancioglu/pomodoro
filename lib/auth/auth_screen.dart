@@ -23,6 +23,15 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
+  Future<void> _signOut()async{
+    try{
+      Provider.of<Auth>(context,listen: false).signOutFromGoogle();
+    }catch(e){
+      print(e);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +40,26 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       resizeToAvoidBottomInset:false,
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(
-            deviceSize.height*0.16),
-        child: Container(
-          decoration: BoxDecoration(
-            color: ColorConstants.primaryColor,
-            boxShadow: [
-               BoxShadow(
-                   blurRadius: 40.0)],
-            borderRadius:BorderRadius.vertical(
-                bottom: Radius.elliptical(
-                   deviceSize.width, 100.0)),
-          ),
-        ),
+      appBar: AppBar(
+        title: Text('Login'),
+        actions: [
+          IconButton(
+              onPressed: _signOut,
+              icon: Icon(Icons.logout,
+                  color: ColorConstants.black))
+        ],
       ),
       body:Center(
         child: Column(
           children:[
             Padding(
-              padding: EdgeInsets.only(top: 30.0),
+              padding: EdgeInsets.only(
+                  top: 30.0),
               child: AuthCard(),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(
+                  top: 10),
               child: Row(
                   children: const <Widget>[
                     Expanded(
@@ -105,3 +110,19 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
+//PreferredSize(
+//         preferredSize: Size.fromHeight(
+//             deviceSize.height*0.16),
+//         child: Container(
+//           child: Icon(Icons.logout),
+//           decoration: BoxDecoration(
+//             color: ColorConstants.primaryColor,
+//             boxShadow: [
+//                BoxShadow(
+//                    blurRadius: 40.0)],
+//             borderRadius:BorderRadius.vertical(
+//                 bottom: Radius.elliptical(
+//                    deviceSize.width, 100.0)),
+//           ),
+//         ),
+//       ),

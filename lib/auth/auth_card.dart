@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
+import 'package:pomodoro_app/home_page.dart';
 import 'package:provider/provider.dart';
+import '../models/user.dart';
 import '../services/auth.dart';
 import '../models/http_exception.dart';
 
@@ -27,13 +29,17 @@ class _AuthCardState extends State<AuthCard> {
   bool _obscureText=true;
   bool _obscureTextForConfirm=true;
 
+
+
+
    _showErrorDialog(String message){
     showDialog(
         context: context,
         builder: (ctx){
           return AlertDialog(
             title:Text('An Error Occured!'),
-            content: Text(message),
+            content: Text(message,
+            style:TextStyle(color: ColorConstants.black) ),
             actions: [
               TextButton(
                   onPressed:(){
@@ -60,13 +66,19 @@ class _AuthCardState extends State<AuthCard> {
         await Provider.of<Auth>(context,listen: false).login(
             _authData['email']!,
             _authData['password']!);
+
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context)=>HomePage()));
       }else{
         await Provider.of<Auth>(context,listen: false).signUp(
             _authData['email']!,
             _authData['password']!);
+
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context)=>HomePage()));
       }
     } on HttpException catch(error){
-      var errorMessage = 'Authentication failed!';
+      String errorMessage = 'Authentication failed!';
        if(error.toString().contains('EMAIL_EXISTS')){
          errorMessage ='This e-mail address is already in use.';
        }else if(error.toString().contains('INVALID_EMAIL')){
@@ -259,7 +271,8 @@ class _AuthCardState extends State<AuthCard> {
                   child: Text('${_authMode ==AuthMode.Login
                       ? 'SIGNUP'
                       : 'LOGIN'}'),
-                  onPressed: _switchAuthMode,style: TextButton.styleFrom(
+                  onPressed: _switchAuthMode,
+                  style: TextButton.styleFrom(
                     padding:EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 4),

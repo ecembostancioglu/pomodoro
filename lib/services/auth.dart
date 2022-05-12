@@ -8,9 +8,15 @@ import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier{
 
+  String? _uid;
+  String? _email;
+
+
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  Future<void> _authenticate(String email, String password)async{
+
+  Future<void> _authenticatewithSignUp(String email, String password)async{
     final String url =FlutterConfig.get('API_URL_SIGNUP');
     try{
       final response=await http.post(
@@ -25,10 +31,32 @@ class Auth with ChangeNotifier{
       );
       final responseData=json.decode(response.body);
       if(responseData['error'] != null){
-      return Future.error(HttpException(responseData['error']['message']));
+      throw HttpException(responseData['error']['message']);
       }
     } catch(error){
        return Future.error(error);
+    }
+
+  }
+  Future<void> _authenticatewithLogin(String email, String password)async{
+    final String url =FlutterConfig.get('API_URL_LOGIN');
+    try{
+      final response=await http.post(
+        Uri.parse(url),
+        body: json.encode(
+          {
+            'email': email,
+            'password': password,
+            'returnSecureToken':true
+          },
+        ),
+      );
+      final responseData=json.decode(response.body);
+      if(responseData['error'] != null){
+        throw HttpException(responseData['error']['message']);
+      }
+    } catch(error){
+      return Future.error(error);
     }
 
   }
@@ -48,7 +76,7 @@ class Auth with ChangeNotifier{
   ),
  );
  print(json.decode(response.body));
-
+ return _authenticatewithSignUp(email, password);
 
   }
 
@@ -64,9 +92,12 @@ class Auth with ChangeNotifier{
         },
       ),
     );
-  }
+    print(json.decode(response.body));
+    return _authenticatewithLogin(email, password);
 
+  }
   Future<void> signInwithGoogle() async {
+
     try {
       final GoogleSignInAccount? googleSignInAccount =
       await _googleSignIn.signIn();
@@ -87,8 +118,5 @@ class Auth with ChangeNotifier{
     await _googleSignIn.signOut();
     await _auth.signOut();
   }
-
-
-
 
 }
