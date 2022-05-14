@@ -102,7 +102,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     width:deviceSize.width*0.13),
                 ),
               ],
-            )
+            ),
           ],
         ),
       )

@@ -4,7 +4,6 @@ import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/home_page.dart';
 import 'package:provider/provider.dart';
-import '../models/user.dart';
 import '../services/auth.dart';
 import '../models/http_exception.dart';
 
@@ -30,27 +29,28 @@ class _AuthCardState extends State<AuthCard> {
   bool _obscureTextForConfirm=true;
 
 
-
-
    _showErrorDialog(String message){
     showDialog(
         context: context,
         builder: (ctx){
           return AlertDialog(
-            title:Text('An Error Occured!'),
-            content: Text(message,
-            style:TextStyle(color: ColorConstants.black) ),
-            actions: [
+          shape:RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+              Radius.circular(20))),
+           title:Text('An Error Occured!'),
+           content: Text(message,
+          style:TextStyle(
+              color: ColorConstants.black) ),
+           actions: [
               TextButton(
-                  onPressed:(){
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text('Okay'))
-            ],
-          );
-        });
+                onPressed:(){
+                Navigator.of(ctx).pop();
+            },
+               child: Text('Okay'))
+                 ],
+           );
+          });
   }
-
 
   Future<void> _submit()async{
     if(!_formKey.currentState!.validate()){
@@ -279,7 +279,7 @@ class _AuthCardState extends State<AuthCard> {
                     tapTargetSize:MaterialTapTargetSize.shrinkWrap,
                     textStyle: TextStyle(
                         color: Theme.of(context).primaryColor
-                    )),)
+                    )),),
               ],
             ),
           ),

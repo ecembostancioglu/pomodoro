@@ -72,15 +72,12 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return _connectivityResult==null
         ? NoInternetPopUp()
         : AuthScreen();
   }
-
   Widget NoInternetPopUp() {
 
     final size=MediaQuery.of(context).size;
