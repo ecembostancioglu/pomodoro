@@ -40,14 +40,20 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       resizeToAvoidBottomInset:false,
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text('Login'),
-        actions: [
-          IconButton(
-              onPressed: _signOut,
-              icon: Icon(Icons.logout,
-                  color: ColorConstants.black))
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(
+            deviceSize.height*0.16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: ColorConstants.primaryColor,
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 40.0)],
+            borderRadius:BorderRadius.vertical(
+                bottom: Radius.elliptical(
+                    deviceSize.width, 100.0)),
+          ),
+        ),
       ),
       body:Center(
         child: Column(
@@ -59,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  top: 10),
+                  top: 20),
               child: Row(
                   children: const <Widget>[
                     Expanded(
@@ -80,28 +86,34 @@ class _AuthScreenState extends State<AuthScreen> {
                   ]
               ),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment:MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                 splashColor: ColorConstants.highlightColor,
-                 onTap: (){},
-                 customBorder: CircleBorder(),
-                 radius:deviceSize.width*0.1,
-                 child: Icon(Icons.facebook,
-                  size: deviceSize.width*0.14,
-                  color: ColorConstants.facebook,),
-             ),
-                InkWell(
-                  splashColor: ColorConstants.highlightColor,
-                  radius:deviceSize.width*0.1,
-                  onTap:_signInGoogle,
-                  customBorder: CircleBorder(),
-                  child: Image.asset('assets/google.png',
-                    width:deviceSize.width*0.13),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ElevatedButton(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: 50),
+                      child: Image.asset('assets/google.png',
+                        width: 30,height: 30),
+                    ),
+                    Text(TextConstants.continueGoogle,
+                      style: TextStyle(
+                      color: Theme.of(context).primaryColor
+                    ),),
+                  ],
                 ),
-              ],
+                onPressed:_signInGoogle,
+                style: ButtonStyle(
+                    fixedSize:MaterialStateProperty.all(
+                        Size(
+                            deviceSize.width*0.5,
+                            deviceSize.height*0.05)) ,
+                    shape:MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
+                      return RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10));}),
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).backgroundColor)),),
             ),
           ],
         ),
@@ -109,20 +121,3 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-
-//PreferredSize(
-//         preferredSize: Size.fromHeight(
-//             deviceSize.height*0.16),
-//         child: Container(
-//           child: Icon(Icons.logout),
-//           decoration: BoxDecoration(
-//             color: ColorConstants.primaryColor,
-//             boxShadow: [
-//                BoxShadow(
-//                    blurRadius: 40.0)],
-//             borderRadius:BorderRadius.vertical(
-//                 bottom: Radius.elliptical(
-//                    deviceSize.width, 100.0)),
-//           ),
-//         ),
-//       ),
