@@ -4,7 +4,18 @@ class TextConstants{
   static const String noConnection='Make sure Wi-Fi or mobile data is turned on, then try again';
   static const String retry='Retry';
   static const String or='OR';
+  static const String okay='Okay';
+  static const String congratulations='Congratulations!';
+  static const String alertSubtitle='Your are in here.\nPlease login and start to plan your life..';
   static const String continueGoogle='Continue with Google';
+  static const String authFailed='Authentication failed!';
+  static const String usedEmail='This e-mail address is already in use.';
+  static const String notValidEmail='This is not a valid e-mail address';
+  static const String weakPassword='This password is too weak.';
+  static const String notFindUser='Could not find a user with that e-mail.';
+  static const String invalidPassword='Invalid password.';
+  static const String errorMessage='Could not authenticate you. Please try again later.';
+  static const String errorOccured='An Error Occured!';
 
 
 

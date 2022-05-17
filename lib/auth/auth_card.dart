@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
+import 'package:pomodoro_app/constants/text_constants.dart';
 import 'package:pomodoro_app/home_page.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
@@ -27,26 +29,28 @@ class _AuthCardState extends State<AuthCard> {
   final _confirmPasswordController=TextEditingController();
   bool _obscureText=true;
   bool _obscureTextForConfirm=true;
+  String title=TextConstants.errorOccured;
+  String congrat=TextConstants.congratulations;
+  String subtitle=TextConstants.alertSubtitle;
 
-
-   _showErrorDialog(String message){
+   _showDialog(String message,String title){
     showDialog(
         context: context,
         builder: (ctx){
           return AlertDialog(
-          shape:RoundedRectangleBorder(
+          shape:const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
               Radius.circular(20))),
-           title:Text('An Error Occured!'),
+           title:Text(title),
            content: Text(message,
-          style:TextStyle(
-              color: ColorConstants.black) ),
+           style:Theme.of(context).textTheme.subtitle1?.copyWith(
+               color: ColorConstants.black)),
            actions: [
               TextButton(
                 onPressed:(){
                 Navigator.of(ctx).pop();
             },
-               child: Text('Okay'))
+               child: Text(TextConstants.okay))
                  ],
            );
           });
@@ -66,34 +70,35 @@ class _AuthCardState extends State<AuthCard> {
         await Provider.of<Auth>(context,listen: false).login(
             _authData['email']!,
             _authData['password']!);
-
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context)=>HomePage()));
-      }else{
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context)=>HomePage()));
+      }
+      else{
         await Provider.of<Auth>(context,listen: false).signUp(
             _authData['email']!,
-            _authData['password']!);
+            _authData['password']!
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context)=>HomePage()));
+        );
+        print('ÜYE OLUNDU');
+       _showDialog(subtitle, congrat);
       }
     } on HttpException catch(error){
-      String errorMessage = 'Authentication failed!';
+      String errorMessage = TextConstants.authFailed;
        if(error.toString().contains('EMAIL_EXISTS')){
-         errorMessage ='This e-mail address is already in use.';
+         errorMessage =TextConstants.usedEmail;
        }else if(error.toString().contains('INVALID_EMAIL')){
-         errorMessage='This is not a valid e-mail address';
+         errorMessage=TextConstants.notValidEmail;
        }else if(error.toString().contains('WEAK_PASSWORD')){
-         errorMessage='This password is too weak.';
+         errorMessage=TextConstants.weakPassword;
        }else if(error.toString().contains('EMAIL_NOT_FOUND')){
-         errorMessage='Could not find a user with that e-mail.';
+         errorMessage=TextConstants.notFindUser;
        }else if(error.toString().contains('INVALID_PASSWORD')){
-         errorMessage='Invalid password.';
+         errorMessage=TextConstants.invalidPassword;
        }
-      _showErrorDialog(errorMessage);
+      _showDialog(errorMessage,title);
     }catch(error){
-      const errorMessage = 'Could not authenticate you. Please try again later.';
-      _showErrorDialog(errorMessage);
+      const errorMessage = TextConstants.errorMessage;
+      _showDialog(errorMessage,title);
     }
     setState(() {
       _isLoading=false;
@@ -223,7 +228,7 @@ class _AuthCardState extends State<AuthCard> {
                       controller: _confirmPasswordController,
                       validator: _authMode ==AuthMode.SignUp
                           ? (val) {
-                        if(val != _confirmPasswordController.text){
+                        if(val != _passwordController.text){
                           return 'Passwords do not match!';
                         }
                       }
@@ -258,7 +263,7 @@ class _AuthCardState extends State<AuthCard> {
                           top:40),
                       child: ElevatedButton(
                         child: Text(_authMode ==AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
-                        onPressed: _submit,
+                        onPressed:_submit,
                         style: ButtonStyle(
                             shape:MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
                               return RoundedRectangleBorder(
@@ -277,8 +282,8 @@ class _AuthCardState extends State<AuthCard> {
                         horizontal: 10,
                         vertical: 4),
                     tapTargetSize:MaterialTapTargetSize.shrinkWrap,
-                    textStyle: TextStyle(
-                        color: Theme.of(context).primaryColor
+                    textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: ColorConstants.primaryColor
                     )),),
               ],
             ),

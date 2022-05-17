@@ -34,11 +34,13 @@ class Auth with ChangeNotifier{
       throw HttpException(responseData['error']['message']);
       }
     } catch(error){
-       return Future.error(error);
+      return Future.error(error);
     }
 
   }
+
   Future<void> _authenticatewithLogin(String email, String password)async{
+
     final String url =FlutterConfig.get('API_URL_LOGIN');
     try{
       final response=await http.post(
@@ -61,7 +63,6 @@ class Auth with ChangeNotifier{
 
   }
 
-
   Future<void> signUp(String email, String password)async{
 
   final String url =FlutterConfig.get('API_URL_SIGNUP');
@@ -76,7 +77,7 @@ class Auth with ChangeNotifier{
   ),
  );
  print(json.decode(response.body));
- return _authenticatewithSignUp(email, password);
+// return _authenticatewithLogin(email, password);
 
   }
 
@@ -93,9 +94,12 @@ class Auth with ChangeNotifier{
       ),
     );
     print(json.decode(response.body));
+    print(response.body.contains('idToken'));
     return _authenticatewithLogin(email, password);
 
   }
+
+
   Future<void> signInwithGoogle() async {
 
     try {
