@@ -1,11 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:pomodoro_app/constants/color_constants.dart';
-import 'package:pomodoro_app/screens/splash_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:pomodoro_app/my_app.dart';
 import 'firebase_options.dart';
-import 'services/auth.dart';
 
 
 void main() async {
@@ -16,22 +13,4 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Auth(),
-      child: MaterialApp(
-        theme:ThemeData(
-            backgroundColor: ColorConstants.backgroundColor,
-            primaryColor: ColorConstants.primaryColor,
-            textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: ColorConstants.primaryColor,
-            )),
-        debugShowCheckedModeBanner: false,
-        home:  SplashScreen(),
-      ),
-    );
-  }
-}
+

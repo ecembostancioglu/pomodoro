@@ -7,10 +7,8 @@ import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier{
-
   String? _uid;
   String? _email;
-
 
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -99,6 +97,13 @@ class Auth with ChangeNotifier{
 
   }
 
+  Future<void> signOut() async{
+    await _auth.signOut();
+  }
+
+  Stream<User?> authStatus(){
+    return _auth.authStateChanges();
+  }
 
   Future<void> signInwithGoogle() async {
 

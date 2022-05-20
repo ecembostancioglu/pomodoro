@@ -7,14 +7,14 @@ import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class CheckInternet extends StatefulWidget {
+  const CheckInternet({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<CheckInternet> createState() => _CheckInternetState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _CheckInternetState extends State<CheckInternet> {
 
   ConnectivityResult? _connectivityResult;
   StreamSubscription? _connectivitySubscription;
