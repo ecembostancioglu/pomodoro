@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/screens/check_internet.dart';
-import 'package:pomodoro_app/screens/dashboard.dart';
 import 'package:pomodoro_app/screens/on_board.dart';
 import 'package:pomodoro_app/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +14,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Auth(),
-      child: MaterialApp(
-        theme:ThemeData(
+    return Provider<Auth>(
+        create: (context)=> Auth(),
+        child: MaterialApp(
+         theme:ThemeData(
             backgroundColor: ColorConstants.backgroundColor,
             primaryColor: ColorConstants.primaryColor,
             textTheme: Theme.of(context).textTheme.apply(

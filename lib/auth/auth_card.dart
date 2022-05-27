@@ -1,13 +1,13 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
 import 'package:pomodoro_app/home_page.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
-import '../models/http_exception.dart';
 
 class AuthCard extends StatefulWidget {
   const AuthCard({Key? key}) : super(key: key);
@@ -32,6 +32,8 @@ class _AuthCardState extends State<AuthCard> {
   String title=TextConstants.errorOccured;
   String congrat=TextConstants.congratulations;
   String subtitle=TextConstants.alertSubtitle;
+
+
 
    _showDialog(String message,String title){
     showDialog(
@@ -67,35 +69,27 @@ class _AuthCardState extends State<AuthCard> {
     });
     try{
       if(_authMode ==AuthMode.Login){
-        await Provider.of<Auth>(context,listen: false).login(
+        await Provider.of<Auth>(context,listen: false).loginWithEmailandPassword(
             _authData['email']!,
             _authData['password']!);
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context)=>HomePage()));
+
+
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+
       }
       else{
-        await Provider.of<Auth>(context,listen: false).signUp(
+        await Provider.of<Auth>(context,listen: false).createUserWithEmailandPassword(
             _authData['email']!,
             _authData['password']!
 
         );
+
         print('ÜYE OLUNDU');
-       _showDialog(subtitle, congrat);
+   //    _showDialog(subtitle, congrat);
       }
-    } on HttpException catch(error){
-      String errorMessage = TextConstants.authFailed;
-       if(error.toString().contains('EMAIL_EXISTS')){
-         errorMessage =TextConstants.usedEmail;
-       }else if(error.toString().contains('INVALID_EMAIL')){
-         errorMessage=TextConstants.notValidEmail;
-       }else if(error.toString().contains('WEAK_PASSWORD')){
-         errorMessage=TextConstants.weakPassword;
-       }else if(error.toString().contains('EMAIL_NOT_FOUND')){
-         errorMessage=TextConstants.notFindUser;
-       }else if(error.toString().contains('INVALID_PASSWORD')){
-         errorMessage=TextConstants.invalidPassword;
-       }
-      _showDialog(errorMessage,title);
+    } on FirebaseAuthException catch(error){
+       print(error);
     }catch(error){
       const errorMessage = TextConstants.errorMessage;
       _showDialog(errorMessage,title);
@@ -241,7 +235,7 @@ class _AuthCardState extends State<AuthCard> {
                     child: FlutterPwValidator(
                         width: deviceSize.width*0.8,
                         height: deviceSize.height*0.12,
-                        defaultColor:ColorConstants.grey,
+                        defaultColor:ColorConstants.transparent,
                         failureColor:ColorConstants.error,
                         numericCharCount: 1,
                         normalCharCount: 1,
@@ -252,7 +246,8 @@ class _AuthCardState extends State<AuthCard> {
                         controller:_passwordController),
                   ),
                 if(_isLoading)
-                  const CircularProgressIndicator()
+                   SpinKitPouringHourGlass(
+                       color: Theme.of(context).primaryColor)
                 else
                   ConstrainedBox(
                     constraints: BoxConstraints.tightFor(
@@ -273,9 +268,9 @@ class _AuthCardState extends State<AuthCard> {
                     ),
                   ),
                 TextButton(
-                  child: Text('${_authMode ==AuthMode.Login
+                  child: Text(_authMode ==AuthMode.Login
                       ? 'SIGNUP'
-                      : 'LOGIN'}'),
+                      : 'LOGIN'),
                   onPressed: _switchAuthMode,
                   style: TextButton.styleFrom(
                     padding:EdgeInsets.symmetric(

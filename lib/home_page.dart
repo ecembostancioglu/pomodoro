@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
-import 'package:pomodoro_app/screens/dashboard.dart';
-import 'screens/profile_page.dart';
-import 'screens/statistic_page.dart';
+import 'package:pomodoro_app/screens/dashboard/dashboard_view.dart';
+import 'screens/profile_page_view.dart';
+import 'screens/statistic_page_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

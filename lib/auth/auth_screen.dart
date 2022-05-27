@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
+import 'package:pomodoro_app/screens/dashboard/dashboard_view.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
 import 'auth_card.dart';
@@ -15,23 +17,20 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
 
+
+
   Future<void> _signInGoogle()async{
     try{
      Provider.of<Auth>(context,listen: false).signInwithGoogle();
+     final user= Provider.of<User>(context,listen: false);
+     if(user.uid != null){
+       Navigator.push(context, MaterialPageRoute(
+           builder: (context)=>Dashboard()));
+     }
     }catch(e){
       print(e);
     }
   }
-
-  Future<void> _signOut()async{
-    try{
-      Provider.of<Auth>(context,listen: false).signOutFromGoogle();
-    }catch(e){
-      print(e);
-    }
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +92,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          right: 50),
+                          right: 10),
                       child: Image.asset('assets/google.png',
                         width: 30,height: 30),
                     ),
+                    Spacer(flex:1),
                     Text(TextConstants.continueGoogle,
                       style: TextStyle(
                       color: Theme.of(context).primaryColor
@@ -111,7 +111,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             deviceSize.height*0.05)) ,
                     shape:MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
                       return RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10));}),
+                          borderRadius: BorderRadius.circular(10));
+                    }),
                     backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).backgroundColor)),),
             ),
