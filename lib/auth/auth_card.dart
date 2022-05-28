@@ -89,10 +89,16 @@ class _AuthCardState extends State<AuthCard> {
    //    _showDialog(subtitle, congrat);
       }
     } on FirebaseAuthException catch(error){
-       print(error);
-    }catch(error){
-      const errorMessage = TextConstants.errorMessage;
-      _showDialog(errorMessage,title);
+      if(error.toString().contains('invalid-email')){
+        _showDialog(TextConstants.invalidEmail, title);
+      }
+      if(error.toString().contains('user-not-found')){
+        _showDialog(TextConstants.userNotFound, title);
+      }
+      if(error.toString().contains('wrong-password')){
+        _showDialog(TextConstants.wrongPassword, title);
+      }
+      print(error);
     }
     setState(() {
       _isLoading=false;

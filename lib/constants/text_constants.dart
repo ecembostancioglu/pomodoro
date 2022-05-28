@@ -10,6 +10,9 @@ class TextConstants{
   static const String continueGoogle='Continue with Google';
   static const String errorMessage='Could not authenticate you. Please try again later.';
   static const String errorOccured='An Error Occured!';
+  static const String invalidEmail='Invalid E-mail!';
+  static const String userNotFound='User not Found!';
+  static const String wrongPassword='Wrong Password!';
 
 
 
