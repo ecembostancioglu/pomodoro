@@ -86,7 +86,7 @@ class _AuthCardState extends State<AuthCard> {
         );
 
         print('ÜYE OLUNDU');
-   //    _showDialog(subtitle, congrat);
+       _showDialog(subtitle, congrat);
       }
     } on FirebaseAuthException catch(error){
       if(error.toString().contains('invalid-email')){
