@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Auth {
@@ -15,24 +14,16 @@ class Auth {
           email: email,
           password: password);
       String userUid=userCredentials.user!.uid;
-
       await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(userUid)
-      .set({'email':email});
-
-
-
-
+          .collection('Users')
+          .doc(userUid)
+          .set({'email':email});
       return userCredentials.user;
 
     }catch(error){
      return Future.error(error);
    }
   }
-
-
-
 
   Future<User?>loginWithEmailandPassword(
       String email,String password) async{
@@ -45,6 +36,16 @@ class Auth {
     return Future.error(error);
   }
   }
+
+
+  Future<void> addUsertoFirestore(User currentUser)async{
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(currentUser.uid)
+        .set({'email':currentUser.email});
+  }
+
+
 
 
   Future<void> signOut() async{
@@ -66,6 +67,12 @@ class Auth {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
+      String userUid=googleSignInAccount.id;
+      String userMail=googleSignInAccount.email;
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userUid)
+          .set({'email':userMail});
       await _firebaseAuth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       print(e.message);
