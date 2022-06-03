@@ -41,9 +41,11 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: GamourRegular
+    - family: DidotRegular
       fonts:
-        - asset: assets/GamourRegular.ttf
+        - asset: assets/fonts/DidotRegular.ttf
+
+
 
   assets:
       - assets/

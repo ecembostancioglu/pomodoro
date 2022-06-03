@@ -23,7 +23,9 @@ class _OnBoardState extends State<OnBoard> {
         stream: _auth.authStatus(),
         builder: (context,snapshot){
           if(snapshot.connectionState == ConnectionState.active){
-            return snapshot.data != null ? Dashboard() : CheckInternet();
+            return snapshot.data != null
+                ? Dashboard()
+                : CheckInternet();
           }else{
             return SpinKitPouringHourGlass(
                 color: Theme.of(context).primaryColor);

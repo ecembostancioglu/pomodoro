@@ -14,13 +14,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Provider<Auth>(
+
+    return ChangeNotifierProvider(
         create: (context)=> Auth(),
         child: MaterialApp(
          theme:ThemeData(
             backgroundColor: ColorConstants.backgroundColor,
             primaryColor: ColorConstants.primaryColor,
             textTheme: Theme.of(context).textTheme.apply(
+              fontFamily:'DidotRegular',
               bodyColor: ColorConstants.primaryColor,
             )),
         debugShowCheckedModeBanner: false,

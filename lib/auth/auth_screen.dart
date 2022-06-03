@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
-import 'package:pomodoro_app/screens/dashboard/dashboard_view.dart';
+import 'package:pomodoro_app/home_page.dart';
 import 'package:provider/provider.dart';
 import '../services/auth.dart';
 import 'auth_card.dart';
@@ -17,15 +17,15 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
 
+    User? user;
 
 
   Future<void> _signInGoogle()async{
     try{
      Provider.of<Auth>(context,listen: false).signInwithGoogle();
-     final user= Provider.of<User>(context,listen: false);
-     if(user.uid != null){
-       Navigator.push(context, MaterialPageRoute(
-           builder: (context)=>Dashboard()));
+     if(user!.uid != null){
+       Navigator.pushReplacement(context, MaterialPageRoute(
+           builder: (context)=>HomePage()));
      }
     }catch(e){
       print(e);
@@ -103,7 +103,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),),
                   ],
                 ),
-                onPressed:_signInGoogle,
+                onPressed: (){
+                  (user != null)
+                      ? CircularProgressIndicator()
+                      : _signInGoogle();
+                },
                 style: ButtonStyle(
                     fixedSize:MaterialStateProperty.all(
                         Size(
