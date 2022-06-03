@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
               fontFamily:'DidotRegular',
               bodyColor: ColorConstants.primaryColor,
             )),
-        debugShowCheckedModeBanner: false,
-        home: OnBoard(),
+         debugShowCheckedModeBanner: false,
+         home: OnBoard(),
       ),
     );
   }
