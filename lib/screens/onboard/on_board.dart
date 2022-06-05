@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
+import 'package:pomodoro_app/screens/auth/auth_screen.dart';
 
 
 class OnBoard extends StatefulWidget {
@@ -16,7 +16,7 @@ class _OnBoardState extends State<OnBoard> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => AuthScreen()),
     );
   }

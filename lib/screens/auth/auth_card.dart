@@ -2,12 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:pomodoro_app/auth/auth_screen.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
 import 'package:pomodoro_app/home_page.dart';
+import 'package:pomodoro_app/screens/auth/auth_screen.dart';
+import 'package:pomodoro_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import '../services/auth.dart';
+
 
 class AuthCard extends StatefulWidget {
   const AuthCard({Key? key}) : super(key: key);

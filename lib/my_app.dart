@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/screens/on_board.dart';
+import 'package:pomodoro_app/home_page.dart';
+import 'package:pomodoro_app/screens/home/dashboard/dashboard.dart';
+import 'package:pomodoro_app/screens/onboard/on_board.dart';
 import 'package:pomodoro_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'constants/color_constants.dart';
@@ -26,7 +28,7 @@ class _MyAppState extends State<MyApp> {
               bodyColor: ColorConstants.primaryColor,
             )),
          debugShowCheckedModeBanner: false,
-         home: OnBoard(),
+         home: HomePage(),
       ),
     );
   }

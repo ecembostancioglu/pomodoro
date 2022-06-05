@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
 import 'package:pomodoro_app/home_page.dart';
+import 'package:pomodoro_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import '../services/auth.dart';
 import 'auth_card.dart';
 
 enum AuthMode{ SignUp, Login}

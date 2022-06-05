@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/auth/auth_screen.dart';
+import 'package:pomodoro_app/screens/auth/auth_screen.dart';
 import '../widgets/no_internet_connection_widget.dart';
 
 class CheckInternet extends StatefulWidget {

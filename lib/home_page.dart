@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
-import 'package:pomodoro_app/screens/dashboard/dashboard_view.dart';
-import 'screens/profile_page_view.dart';
-import 'screens/statistic_page_view.dart';
+import 'package:pomodoro_app/screens/home/dashboard/dashboard.dart';
+import 'package:pomodoro_app/screens/home/tasks_page/tasks_page_view.dart';
+import 'screens/home/profile_page/profile_page_view.dart';
+import 'screens/home/statistic_page/statistic_page_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
+    TasksPage(),
     StatisticPage(),
     ProfilePage()
   ];
@@ -38,6 +40,9 @@ class _HomePageState extends State<HomePage> {
               icon:Icon(Icons.home),
               label: 'Home'),
           BottomNavigationBarItem(
+              icon:Icon(Icons.access_time),
+              label: 'Tasks'),
+          BottomNavigationBarItem(
               icon:Icon(Icons.bar_chart_rounded),
               label: 'Statistics'),
           BottomNavigationBarItem(
@@ -45,7 +50,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Profile'),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor:ColorConstants.primaryColor,
+        selectedItemColor:ColorConstants.selectedItemColor,
+        unselectedItemColor: ColorConstants.primaryColor,
         showUnselectedLabels: false,
         showSelectedLabels: false,
         onTap: _onItemTapped,
