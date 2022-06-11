@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:pomodoro_app/constants/text_constants.dart';
-import 'package:pomodoro_app/screens/auth/auth_screen.dart';
+
 
 
 class OnBoard extends StatefulWidget {
@@ -15,19 +15,13 @@ class OnBoard extends StatefulWidget {
 class _OnBoardState extends State<OnBoard> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => AuthScreen()),
-    );
-  }
-
   Widget _buildImage(String assetName, [double width = 350]) {
     return Image.asset('assets/$assetName', width: width);
   }
 
   Widget nextButton(){
     return ElevatedButton(
-        onPressed: () => _onIntroEnd(context),
+        onPressed: (){},
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
@@ -61,7 +55,7 @@ class _OnBoardState extends State<OnBoard> {
           child: Padding(
             padding: EdgeInsets.only(top: 16, right: 16),
             child: TextButton(
-              onPressed: ()=> _onIntroEnd(context),
+              onPressed: (){},
               child: Text(TextConstants.skip,
               style: TextStyle(color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold),),
@@ -89,7 +83,7 @@ class _OnBoardState extends State<OnBoard> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => _onIntroEnd(context),
+      onDone: (){},
       skipOrBackFlex: 0,
       nextFlex: 0,
       showBackButton: false,

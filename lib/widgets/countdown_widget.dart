@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/color_constants.dart';
 
 class CountdownWidget extends StatefulWidget {
@@ -77,10 +76,7 @@ class _CountdownWidgetState extends State<CountdownWidget> with TickerProviderSt
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 60,bottom: 10),
-              child: Text('STEPPER')),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(top: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

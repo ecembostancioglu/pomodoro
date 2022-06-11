@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/color_constants.dart';
-import 'package:pomodoro_app/screens/home/dashboard/dashboard.dart';
-import 'package:pomodoro_app/screens/home/tasks_page/tasks_page_view.dart';
+import 'package:pomodoro_app/screens/home/dashboard_page/dashboard_page_view.dart';
 import 'screens/home/profile_page/profile_page_view.dart';
 import 'screens/home/statistic_page/statistic_page_view.dart';
 
@@ -18,7 +17,6 @@ class _HomePageState extends State<HomePage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
-    TasksPage(),
     StatisticPage(),
     ProfilePage()
   ];
@@ -35,13 +33,10 @@ class _HomePageState extends State<HomePage> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 10,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon:Icon(Icons.home),
               label: 'Home'),
-          BottomNavigationBarItem(
-              icon:Icon(Icons.access_time),
-              label: 'Tasks'),
           BottomNavigationBarItem(
               icon:Icon(Icons.bar_chart_rounded),
               label: 'Statistics'),
